@@ -55,6 +55,7 @@ class AutomationPracticeTests {
         home.searchFor("blouse")
         home.addItemToCart()
 
+        TODO("Find a better Selector to check if the item was successfully added to the cart") 
         assertTrue(home.isItemAddedToCart())
     }
 
