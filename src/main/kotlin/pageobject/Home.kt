@@ -1,5 +1,6 @@
 package pageobject
 
+import com.sun.org.apache.xpath.internal.operations.Bool
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.WebElement
 import org.openqa.selenium.support.CacheLookup
@@ -17,6 +18,10 @@ class Home(private val driver: WebDriver) : PageObject(driver) {
     @FindBy(css = "[title='Blouse']")
     private lateinit var blouseItem: WebElement
 
+    @CacheLookup
+    @FindBy(className = "alert-warning")
+    private lateinit var noResultsWarning: WebElement
+
     fun open() {
         driver.get(URL)
     }
@@ -33,6 +38,10 @@ class Home(private val driver: WebDriver) : PageObject(driver) {
 
     fun isBlouseDisplayed(): Boolean {
         return blouseItem.isDisplayed
+    }
+
+    fun areNoResultsFound(): Boolean {
+        return noResultsWarning.isDisplayed
     }
 
 }

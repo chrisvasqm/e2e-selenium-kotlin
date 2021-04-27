@@ -36,6 +36,13 @@ class AutomationPracticeTests {
         assertTrue(home.isBlouseDisplayed())
     }
 
+    @Test
+    fun test_home_searchForNoItem() {
+        home.searchFor("test")
+
+        assertTrue(home.areNoResultsFound())
+    }
+
     @AfterMethod
     fun tearDown() {
         driver.quit()
