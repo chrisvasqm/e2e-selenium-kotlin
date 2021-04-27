@@ -14,7 +14,7 @@ class Home(private val driver: WebDriver) : PageObject(driver) {
     private lateinit var searchBar: WebElement
 
     @CacheLookup
-    @FindBy(css = "text='Blouse'")
+    @FindBy(css = "[title='Blouse']")
     private lateinit var blouseItem: WebElement
 
     fun open() {
