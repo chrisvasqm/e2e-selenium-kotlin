@@ -5,6 +5,7 @@ import org.testng.annotations.BeforeMethod
 import org.testng.annotations.Test
 import pageobject.Home
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 class AutomationPracticeTests {
 
@@ -17,16 +18,22 @@ class AutomationPracticeTests {
         driver.manage().window().maximize()
 
         home = Home(driver)
+        home.open()
     }
 
     @Test
     fun test_home_checkUrl() {
-        home.open()
-
         val expected = home.URL
         val actual = driver.currentUrl
 
         assertEquals(expected, actual)
+    }
+
+    @Test
+    fun test_home_searchForItem() {
+        home.searchFor("blouse")
+
+        assertTrue(home.isBlouseDisplayed())
     }
 
     @AfterMethod
