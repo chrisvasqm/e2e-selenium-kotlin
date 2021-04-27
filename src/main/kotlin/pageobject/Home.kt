@@ -1,6 +1,5 @@
 package pageobject
 
-import com.sun.org.apache.xpath.internal.operations.Bool
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.WebElement
 import org.openqa.selenium.support.CacheLookup
@@ -22,6 +21,14 @@ class Home(private val driver: WebDriver) : PageObject(driver) {
     @FindBy(className = "alert-warning")
     private lateinit var noResultsWarning: WebElement
 
+    @CacheLookup
+    @FindBy(css = "[title='Add to cart']")
+    private lateinit var blouseAddToCart: WebElement
+
+    @CacheLookup
+    @FindBy(css = "[title='Proceed to checkout']")
+    private lateinit var iconOk: WebElement
+
     fun open() {
         driver.get(URL)
     }
@@ -42,6 +49,14 @@ class Home(private val driver: WebDriver) : PageObject(driver) {
 
     fun areNoResultsFound(): Boolean {
         return noResultsWarning.isDisplayed
+    }
+
+    fun addItemToCart() {
+        blouseAddToCart.click()
+    }
+
+    fun isItemAddedToCart(): Boolean {
+        return iconOk.isDisplayed
     }
 
 }
