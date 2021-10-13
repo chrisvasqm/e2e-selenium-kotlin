@@ -43,19 +43,19 @@ class Home(private val driver: WebDriver) : PageObject(driver) {
         }
     }
 
-    fun isBlouseDisplayed(): Boolean {
+    fun isProductFound(): Boolean {
         return blouseItem.isDisplayed
     }
 
-    fun areNoResultsFound(): Boolean {
+    fun areNoProductsFound(): Boolean {
         return noResultsWarning.isDisplayed
     }
 
-    fun addItemToCart() {
+    fun addProductToCart() {
         blouseAddToCart.click()
     }
 
-    fun isItemAddedToCart(): Boolean {
+    fun isProductAddedToCart(): Boolean {
         return iconOk.isDisplayed
     }
 

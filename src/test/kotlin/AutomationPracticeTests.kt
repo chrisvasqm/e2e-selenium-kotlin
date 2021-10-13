@@ -1,35 +1,27 @@
-import org.openqa.selenium.By
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeDriver
-import org.openqa.selenium.support.ui.ExpectedCondition
-import org.openqa.selenium.support.ui.ExpectedConditions
-import org.openqa.selenium.support.ui.WebDriverWait
 import org.testng.annotations.AfterMethod
 import org.testng.annotations.BeforeMethod
 import org.testng.annotations.Test
 import pageobject.Home
-import java.time.Duration
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 class AutomationPracticeTests {
-
     private lateinit var driver: WebDriver
     private lateinit var home: Home
-    private lateinit var wait: WebDriverWait
 
     @BeforeMethod
     fun setUp() {
         driver = ChromeDriver()
         driver.manage().window().maximize()
-        wait = WebDriverWait(driver, 5)
 
         home = Home(driver)
         home.open()
     }
 
     @Test
-    fun test_home_checkUrl() {
+    fun home_CheckUrl_ShouldBeHomePage() {
         val expected = home.URL
         val actual = driver.currentUrl
 
@@ -37,26 +29,26 @@ class AutomationPracticeTests {
     }
 
     @Test
-    fun test_home_searchForItem() {
+    fun home_SearchForExistingProduct_ShouldFindProduct() {
         home.searchFor("blouse")
 
-        assertTrue(home.isBlouseDisplayed())
+        assertTrue(home.isProductFound())
     }
 
     @Test
-    fun test_home_searchForNoItem() {
+    fun home_SearchNonExistingProduct_ShouldNotDisplayAnyProducts() {
         home.searchFor("test")
 
-        assertTrue(home.areNoResultsFound())
+        assertTrue(home.areNoProductsFound())
     }
 
     @Test
-    fun test_home_addItemToCart() {
+    fun home_AddProductToCart_ShouldDisplayProductInCart() {
         home.searchFor("blouse")
-        home.addItemToCart()
+        home.addProductToCart()
 
-        TODO("Find a better Selector to check if the item was successfully added to the cart") 
-        assertTrue(home.isItemAddedToCart())
+        TODO("Find a better Selector to check if the item was successfully added to the cart")
+        assertTrue(home.isProductAddedToCart())
     }
 
     @AfterMethod
