@@ -1,3 +1,4 @@
+import org.assertj.core.api.Assertions.assertThat
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeDriver
 import org.testng.annotations.AfterMethod
@@ -5,11 +6,8 @@ import org.testng.annotations.BeforeMethod
 import org.testng.annotations.Test
 import pageobject.Footer
 import pageobject.Home
-import kotlin.test.assertEquals
-import kotlin.test.assertTrue
 
 class AutomationPracticeTests {
-    private lateinit var footer: Footer
     private lateinit var driver: WebDriver
     private lateinit var home: Home
 
@@ -18,8 +16,7 @@ class AutomationPracticeTests {
         driver = ChromeDriver()
         driver.manage().window().maximize()
 
-        footer = Footer(driver)
-        home = Home(driver, footer)
+        home = Home(driver, Footer(driver))
         home.open()
     }
 
@@ -28,21 +25,21 @@ class AutomationPracticeTests {
         val expected = home.URL
         val actual = driver.currentUrl
 
-        assertEquals(expected, actual)
+        assertThat(expected).isEqualTo(actual)
     }
 
     @Test
     fun home_SearchForExistingProduct_ShouldFindProduct() {
         home.searchFor("blouse")
 
-        assertTrue(home.isProductFound())
+        assertThat(home.isProductFound()).isTrue
     }
 
     @Test
     fun home_SearchNonExistingProduct_ShouldNotDisplayAnyProducts() {
         home.searchFor("test")
 
-        assertTrue(home.areNoProductsFound())
+        assertThat(home.areNoProductsFound()).isTrue
     }
 
     @Test
@@ -51,12 +48,16 @@ class AutomationPracticeTests {
         home.addProductToCart()
 
         TODO("Find a better Selector to check if the item was successfully added to the cart")
-        assertTrue(home.isProductAddedToCart())
+        assertThat(home.isProductAddedToCart()).isTrue
     }
 
     @Test
     fun testhome_FooterInfo_ShouldShowStoreInformation() {
-        assertTrue(home.footer.hasStorePhoneNumber() and home.footer.hasAddress() and home.footer.hasEmail())
+        assertThat(
+            home.footer.hasStorePhoneNumber() and
+                    home.footer.hasAddress() and
+                    home.footer.hasEmail()
+        ).isTrue
     }
 
     @AfterMethod
