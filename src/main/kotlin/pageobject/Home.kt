@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement
 import org.openqa.selenium.support.CacheLookup
 import org.openqa.selenium.support.FindBy
 
-class Home(private val driver: WebDriver) : PageObject(driver) {
+class Home(private val driver: WebDriver, val footer: Footer) : PageObject(driver) {
 
     val URL: String = "http://automationpractice.com/index.php"
 

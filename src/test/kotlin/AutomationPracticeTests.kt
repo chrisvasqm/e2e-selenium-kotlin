@@ -3,11 +3,13 @@ import org.openqa.selenium.chrome.ChromeDriver
 import org.testng.annotations.AfterMethod
 import org.testng.annotations.BeforeMethod
 import org.testng.annotations.Test
+import pageobject.Footer
 import pageobject.Home
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 class AutomationPracticeTests {
+    private lateinit var footer: Footer
     private lateinit var driver: WebDriver
     private lateinit var home: Home
 
@@ -16,7 +18,8 @@ class AutomationPracticeTests {
         driver = ChromeDriver()
         driver.manage().window().maximize()
 
-        home = Home(driver)
+        footer = Footer(driver)
+        home = Home(driver, footer)
         home.open()
     }
 
@@ -49,6 +52,11 @@ class AutomationPracticeTests {
 
         TODO("Find a better Selector to check if the item was successfully added to the cart")
         assertTrue(home.isProductAddedToCart())
+    }
+
+    @Test
+    fun testhome_FooterInfo_ShouldShowStoreInformation() {
+        assertTrue(home.footer.hasStorePhoneNumber() and home.footer.hasAddress() and home.footer.hasEmail())
     }
 
     @AfterMethod
