@@ -55,8 +55,8 @@ class AutomationPracticeTests {
     fun testhome_FooterInfo_ShouldShowStoreInformation() {
         assertThat(
             home.footer.hasStorePhoneNumber() and
-                    home.footer.hasAddress() and
-                    home.footer.hasEmail()
+            home.footer.hasAddress() and
+            home.footer.hasEmail()
         ).isTrue
     }
 
