@@ -47,16 +47,15 @@ class AutomationPracticeTests {
         home.searchFor("blouse")
         home.addProductToCart()
 
-        TODO("Find a better Selector to check if the item was successfully added to the cart")
         assertThat(home.isProductAddedToCart()).isTrue
     }
 
     @Test
-    fun testhome_FooterInfo_ShouldShowStoreInformation() {
+    fun home_FooterInfo_ShouldShowStoreInformation() {
         assertThat(
             home.footer.hasStorePhoneNumber() and
-            home.footer.hasAddress() and
-            home.footer.hasEmail()
+                    home.footer.hasAddress() and
+                    home.footer.hasEmail()
         ).isTrue
     }
 

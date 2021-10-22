@@ -4,6 +4,9 @@ import org.openqa.selenium.WebDriver
 import org.openqa.selenium.WebElement
 import org.openqa.selenium.support.CacheLookup
 import org.openqa.selenium.support.FindBy
+import org.openqa.selenium.support.ui.ExpectedConditions
+import org.openqa.selenium.support.ui.WebDriverWait
+import java.time.Duration
 
 class Home(private val driver: WebDriver, val footer: Footer) : PageObject(driver) {
 
@@ -14,20 +17,22 @@ class Home(private val driver: WebDriver, val footer: Footer) : PageObject(drive
     private lateinit var searchBar: WebElement
 
     @CacheLookup
-    @FindBy(css = "[title='Blouse']")
-    private lateinit var blouseItem: WebElement
+    @FindBy(xpath = "//*[@id=\"center_column\"]/ul/li/div/div[2]/h5/a")
+    private lateinit var itemBlouse: WebElement
 
     @CacheLookup
     @FindBy(className = "alert-warning")
     private lateinit var noResultsWarning: WebElement
 
     @CacheLookup
-    @FindBy(css = "[title='Add to cart']")
-    private lateinit var blouseAddToCart: WebElement
+    @FindBy(xpath = "//*[@id=\"add_to_cart\"]/button/span")
+    private lateinit var buttonAddToCart: WebElement
 
     @CacheLookup
     @FindBy(css = "[title='Proceed to checkout']")
     private lateinit var iconOk: WebElement
+
+    private val wait: WebDriverWait = WebDriverWait(driver, Duration.ofSeconds(10))
 
     fun open() {
         driver.get(URL)
@@ -44,7 +49,7 @@ class Home(private val driver: WebDriver, val footer: Footer) : PageObject(drive
     }
 
     fun isProductFound(): Boolean {
-        return blouseItem.isDisplayed
+        return itemBlouse.isDisplayed
     }
 
     fun areNoProductsFound(): Boolean {
@@ -52,10 +57,12 @@ class Home(private val driver: WebDriver, val footer: Footer) : PageObject(drive
     }
 
     fun addProductToCart() {
-        blouseAddToCart.click()
+        itemBlouse.click()
+        buttonAddToCart.click()
     }
 
     fun isProductAddedToCart(): Boolean {
+        wait.until(ExpectedConditions.elementToBeClickable(iconOk))
         return iconOk.isDisplayed
     }
 
