@@ -1,3 +1,4 @@
+import io.github.bonigarcia.wdm.WebDriverManager
 import org.assertj.core.api.Assertions.assertThat
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeDriver
@@ -13,6 +14,7 @@ class AutomationPracticeTests {
 
     @BeforeMethod
     fun setUp() {
+        WebDriverManager.chromedriver().setup()
         driver = ChromeDriver()
         driver.manage().window().maximize()
 
